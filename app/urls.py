@@ -7,10 +7,12 @@ from app.views.index import index
 urlpatterns = [
     # Index
     path('', index, name='index'),
+
     # Expenses
     path('create/', create_expense, name='create expense'),
     path('edit/', edit_expense, name='edit expense'),
     path('delete/', delete_expense, name='delete expense'),
+
     # Profiles
     path('profile/', profile_index, name='profile index'),
     path('profile/create/', create_profile, name='create profile'),

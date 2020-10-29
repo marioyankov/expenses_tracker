@@ -1,15 +1,16 @@
 from django.shortcuts import render
 
 from app.forms.profiles import ProfileForm
-from app.models import Profile
+from app.models import Profile, Expense
+from app.views.profiles import create_profile
 
 
 def index(request):
     if Profile.objects.exists():
-        pass
-    else:
         context = {
-            'form': ProfileForm(),
+            'profile': Profile.objects.all()[0],
+            'expenses': Expense.objects.all(),
         }
-
-        return render(request, 'home-no-profile.html', context)
+        return render(request, 'home-with-profile.html', context)
+    else:
+        return create_profile(request)
