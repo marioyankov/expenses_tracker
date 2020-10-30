@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 
+from app.common.profile import get_profile
 from app.forms.expenses import ExpenseForm, DeleteExpenseFrom
 from app.models import Expense
 
@@ -14,7 +15,9 @@ def create_expense(request):
     else:
         form = ExpenseForm(request.POST)
         if form.is_valid():
-            form.save()
+            expense = form.save(commit=False)
+            expense.profile = get_profile()
+            expense.save()
             return redirect('index')
 
         context = {
