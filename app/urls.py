@@ -10,8 +10,8 @@ urlpatterns = [
 
     # Expenses
     path('create/', create_expense, name='create expense'),
-    path('edit/', edit_expense, name='edit expense'),
-    path('delete/', delete_expense, name='delete expense'),
+    path('edit/<int:pk>/', edit_expense, name='edit expense'),
+    path('delete/<int:pk>/', delete_expense, name='delete expense'),
 
     # Profiles
     path('profile/', profile_index, name='profile index'),
