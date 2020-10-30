@@ -1,15 +1,17 @@
 from django.shortcuts import render
 
+from app.common.budget import calculate_budget_left
+from app.common.profile import get_profile
 from app.models import Profile, Expense
 from app.views.profiles import create_profile
 
 
 def index(request):
     if Profile.objects.exists():
-        expenses = Expense.objects.all()
-        profile = Profile.objects.all()[0]
-        expenses_cost = sum(expense.price for expense in expenses)
-        profile.budget_left = profile.budget - expenses_cost
+        profile = get_profile()
+        expenses = profile.expense_set.all()
+
+        profile.budget_left = calculate_budget_left(profile, expenses)
 
         context = {
             'profile': profile,
